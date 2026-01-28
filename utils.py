@@ -7,10 +7,6 @@ from io import BytesIO
 # Load embedding model once
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-
-# -------------------------
-# Text Extraction
-# -------------------------
 def extract_text(content: bytes, filename: str) -> str:
     """
     Extract text from PDF or TXT files.
@@ -27,10 +23,6 @@ def extract_text(content: bytes, filename: str) -> str:
     # TXT fallback
     return content.decode("utf-8", errors="ignore")
 
-
-# -------------------------
-# Chunking
-# -------------------------
 def chunk_text(text: str, chunk_size: int = 512, overlap: int = 50):
     """
     Split text into overlapping chunks.
@@ -45,10 +37,6 @@ def chunk_text(text: str, chunk_size: int = 512, overlap: int = 50):
 
     return chunks
 
-
-# -------------------------
-# Background Processing
-# -------------------------
 def process_document(doc_id, content, filename, store):
     """
     Background task:
@@ -76,10 +64,7 @@ def process_document(doc_id, content, filename, store):
 
     store[doc_id] = (index, chunks)
 
-
-# -------------------------
-# Retrieval + Answering
-# -------------------------
+ 
 def retrieve_and_generate(query, index, chunks):
     """
     Retrieve relevant chunks and generate a simple answer.
@@ -102,3 +87,4 @@ def retrieve_and_generate(query, index, chunks):
         "Answer based on retrieved document content:\n\n"
         + context[:1000]
     )
+
